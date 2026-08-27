@@ -5,8 +5,6 @@
   ],
   "build-depends" : [ ],
   "depends" : [
-
-
     "JSON::Fast",
     "Sparrowdo",
     "YAMLish",
@@ -17,7 +15,7 @@
     "Sparrow6:ver<0.0.90+>",
     "Sparrowdo:ver<0.1.54+>",
     "Sparky-Job-Api:ver<0.0.12+>",
-    "Data::Dump:ver<0.0.12+>",
+    "Data::Dump:ver<0.0.12+>"
   ],
   "description" : "Minimalistic sparky library used in DSCI runner",
   "license" : "Artistic-2.0",
