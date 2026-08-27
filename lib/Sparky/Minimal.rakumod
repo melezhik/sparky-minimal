@@ -1,7 +1,6 @@
 use v6;
 
-unit module Sparky:ver<0.0.1>;
-
+unit module Sparky::Minimal:ver<0.0.1>;
 use YAMLish;
 use Time::Crontab;
 use JSON::Fast;
@@ -111,7 +110,7 @@ multi sub get-dbh ( $dir ) is export {
 
   my %conf = get-sparky-conf();
 
-  $dbh  = Sparky::Minimal::Sqlite::DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
+  $dbh  = DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
 
   say "{DateTime.now} --- load sqlite dbh for: " ~ ("$dir/../db.sqlite3".IO.absolute);
 
