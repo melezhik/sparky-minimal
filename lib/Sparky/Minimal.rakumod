@@ -7,6 +7,7 @@ use JSON::Fast;
 use Sparky::Minimal::Sqlite;
 
 my $root = %*ENV<SPARKY_ROOT> || %*ENV<HOME> ~ '/.dsci/.sparky/projects';
+
 my %conf;
 
 sub sparky-http-root is export {
@@ -106,11 +107,7 @@ multi sub get-dbh ( $dir ) is export {
 
   #return $dbh if $dbh;
   
-  my $dbh;
-
-  my %conf = get-sparky-conf();
-
-  $dbh  = DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
+  my $dbh  = Sparky::Minimal::Sqlite::DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
 
   say "{DateTime.now} --- load sqlite dbh for: " ~ ("$dir/../db.sqlite3".IO.absolute);
 
@@ -121,31 +118,13 @@ multi sub get-dbh ( $dir ) is export {
 
 multi sub get-dbh {
 
-  #return $dbh if $dbh;
-
   my $dbh;
 
-  my %conf = get-sparky-conf();
+  $dbh  = Sparky::Minimal::Sqlite::DB.open("$root/db.sqlite3".IO.absolute.Str, False, False);
 
-  if %conf<database> && %conf<database><engine> && %conf<database><engine> !~~ / :i sqlite / {
+  say "{DateTime.now} --- load sqlite dbh for: " ~ ("$root/db.sqlite3".IO.absolute);
 
-    $dbh  = DBIish.connect(
-        %conf<database><engine>,
-        host      => %conf<database><host>,
-        port      => %conf<database><port>,
-        database  => %conf<database><name>,
-        user      => %conf<database><user>,
-        password  => %conf<database><pass>,
-    );
-
-  } else {
-
-    my $db-name = "$root/db.sqlite3";
-    $dbh  = DBIish.connect("SQLite", database => $db-name );
-
-  }
-
-  return $dbh;
+  return $dbh
 
 }
 
