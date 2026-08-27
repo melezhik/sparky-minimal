@@ -1,0 +1,42 @@
+{
+  "auth": "zef:sp1983",
+  "authors" : [
+    "Alexey Melezhik"
+  ],
+  "build-depends" : [ ],
+  "depends" : [
+
+
+    "JSON::Fast",
+    "Sparrowdo",
+    "YAMLish",
+    "DBIish",
+    "DBIish::Pool",
+    "Time::Crontab",
+    "File::Directory::Tree",
+    "Sparrow6:ver<0.0.90+>",
+    "Sparrowdo:ver<0.1.54+>",
+    "Sparky-Job-Api:ver<0.0.12+>",
+    "Data::Dump:ver<0.0.12+>",
+  ],
+  "description" : "Minimalistic sparky library used in DSCI runner",
+  "license" : "Artistic-2.0",
+  "name" : "Sparky",
+  "perl" : "6.*",
+  "provides" : {
+    "Sparky::Minimal" : "lib/Sparky/Minimal.rakumod",
+    "Sparky::Minimal::Job" : "lib/Sparky/Minimal/Job.rakumod",
+    "Sparky::Minimal::Sqlite" : "lib/Sparky/Minimal/Sqlite.rakumod",
+    "Sparky::Minimal::Utils" : "lib/Sparky/Minimal/Utils.rakumod"
+  },
+  "resources" : [ ],
+  "source-type" : "git",
+  "source-url" : "https://github.com/melezhik/sparky-minimal.git",
+  "support" : {
+    "bugtracker" : "https://github.com/melezhik/sparky-minimal/issues",
+    "source" : "https://github.com/melezhik/sparky-minimal.git"
+  },
+  "tags" : [ ],
+  "test-depends" : [ ],
+  "version" : "0.0.1"
+}

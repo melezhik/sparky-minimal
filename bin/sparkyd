@@ -1,0 +1,58 @@
+#/usr/bin/env raku
+
+use Sparky::Minimal;
+
+sub MAIN (
+  Str  :$root = %*ENV<HOME> ~ '/.dsci/.sparky/projects', 
+  Str  :$work-root = %*ENV<HOME> ~ '/.dsci/.sparky/work', 
+  Int  :$timeout = %*ENV<SPARKY_TIMEOUT> || 10,
+)
+
+{
+
+  my %flappers;
+  while True {
+
+    for dir($root) -> $dir {
+
+      #say $dir;
+      next if "$dir".IO ~~ :f;
+      next if $dir.basename eq '.git';
+      next if $dir.basename eq '.reports';
+      next if $dir.basename eq 'db.sqlite3-journal';  
+      next unless "$dir/sparrowfile".IO ~~ :f;
+
+      if "$dir/sparky.yaml".IO !~~ :f {
+        next unless "{$dir}/.triggers/".IO ~~ :d;
+        my @a = dir("{$dir}/.triggers/");
+        next unless @a.elems;
+      }
+
+      mkdir $root;
+      mkdir $work-root;
+
+      my $project = $dir.IO.basename;
+
+      mkdir "$work-root/$project/.lock";
+
+      if %flappers{$dir}:exists &&  %flappers{$dir} >= 5 && sparky-with-flapper() {
+        say "{DateTime.now} --- scm: ! project {$dir.basename} marked as a flapper and skipped from scheduling";
+      } else { 
+        my $status  = schedule-build($dir);
+        if defined($status) {
+          # mark project a flapper
+          # if more then 3 timeouts happened
+          if $status eq "124" {
+            %flappers{$dir} ||= 0;
+            %flappers{$dir}++; 
+          }
+        }
+      }
+    }
+
+    sleep($timeout);
+    
+  }
+
+} 
+
