@@ -1,4 +1,5 @@
 use v6;
+use Test;
 
 use Sparky::Minimal;
 use Sparky::Minimal::Utils;
