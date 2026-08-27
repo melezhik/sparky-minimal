@@ -6,7 +6,6 @@ use YAMLish;
 use Time::Crontab;
 use JSON::Fast;
 use Sparky::Minimal::Sqlite;
-use DBIish;
 
 my $root = %*ENV<SPARKY_ROOT> || %*ENV<HOME> ~ '/.dsci/.sparky/projects';
 my %conf;
@@ -112,7 +111,7 @@ multi sub get-dbh ( $dir ) is export {
 
   my %conf = get-sparky-conf();
 
-  $dbh  = Sparky::Minimal::Ssqlite::DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
+  $dbh  = Sparky::Minimal::Sqlite::DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
 
   say "{DateTime.now} --- load sqlite dbh for: " ~ ("$dir/../db.sqlite3".IO.absolute);
 

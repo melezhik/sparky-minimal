@@ -1,4 +1,4 @@
-#/usr/bin/env raku
+#!/usr/bin/env /home/ubuntu/projects/rakupp/rakupp/bin/rakupp
 
 use Sparky::Minimal;
 use Data::Dump;
@@ -412,7 +412,7 @@ sub MAIN (
 
    my $state;
 
-   say "sparky job finished, exit code:: {$exit-code}";
+   say "sparky job finished, exit code: {$exit-code}";
 
    if $exit-code == 0 {
     $state = 1;
