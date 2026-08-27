@@ -6,6 +6,7 @@ use YAMLish;
 use Time::Crontab;
 use JSON::Fast;
 use Sparky::Minimal::Sqlite;
+use DBIish;
 
 my $root = %*ENV<SPARKY_ROOT> || %*ENV<HOME> ~ '/.dsci/.sparky/projects';
 my %conf;
