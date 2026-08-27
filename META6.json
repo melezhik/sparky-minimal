@@ -19,7 +19,7 @@
   ],
   "description" : "Minimalistic sparky library used in DSCI runner",
   "license" : "Artistic-2.0",
-  "name" : "Sparky",
+  "name" : "Sparky::Minimal",
   "perl" : "6.*",
   "provides" : {
     "Sparky::Minimal" : "lib/Sparky/Minimal.rakumod",
