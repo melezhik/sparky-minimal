@@ -10,12 +10,6 @@ my $root = %*ENV<SPARKY_ROOT> || %*ENV<HOME> ~ '/.dsci/.sparky/projects';
 
 my %conf;
 
-sub sparky-http-root is export {
-
-  %*ENV<SPARKY_HTTP_ROOT> || "";
-
-}
-
 sub sparky-host is export {
 
   get-sparky-conf()<SPARKY_HOST> || "0.0.0.0";
