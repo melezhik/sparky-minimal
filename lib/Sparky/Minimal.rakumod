@@ -1,11 +1,11 @@
 use v6;
 
 unit module Sparky:ver<0.0.1>;
+
 use YAMLish;
-use Sparky::Sqlite;
 use Time::Crontab;
 use JSON::Fast;
-use Sparky::Sqlite;
+use Sparky::Minimal::Sqlite;
 
 my $root = %*ENV<SPARKY_ROOT> || %*ENV<HOME> ~ '/.dsci/.sparky/projects';
 my %conf;
