@@ -1,0 +1,17 @@
+
+say "hello11112";
+
+#for 1 .. 10 {
+#  sleep(2);
+#}
+
+
+bash "podman stop -t1 dsci-agent || :";
+
+bash "podman rm dsci-agent || :";
+
+bash "podman run --network host  -dit --rm --name dsci-agent --entrypoint /bin/sh localhost/melezhik/dsci-agent-rakupp"
+
+
+say "done";
+

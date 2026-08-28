@@ -101,6 +101,8 @@ multi sub get-dbh ( $dir ) is export {
 
   #return $dbh if $dbh;
   
+  say "{DateTime.now} --- load sqlite dbh for: " ~ ("$dir/../db.sqlite3".IO.absolute);
+
   my $dbh  = Sparky::Minimal::Sqlite::DB.open("$dir/../db.sqlite3".IO.absolute.Str, False, False  );
 
   say "{DateTime.now} --- load sqlite dbh for: " ~ ("$dir/../db.sqlite3".IO.absolute);
