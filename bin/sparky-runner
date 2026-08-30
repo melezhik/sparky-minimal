@@ -354,59 +354,62 @@ sub MAIN (
 
   update-sys-report($report-file-sys,"sparrowdo command:\n$sparrowdo-run-sanitized");
 
-  say "GO GO GO, dir: $run-dir";
+  say "GGG GO GO GO, dir: $run-dir";
 
   chdir($run-dir);
 
-  #my $proc = Proc::Async.new(@sparrowdo-run);
+  my $proc = Proc::Async.new(@sparrowdo-run);
 
-  my $proc = run @sparrowdo-run, :out, :err;
+  #my $proc = run @sparrowdo-run, :out, :err;
 
-  my $exit-code = $proc.exitcode;
+  #my $exit-code = $proc.exitcode;
 
-  
-  #my @stdout;
-  #my @stderr;
+  my $exit-code;
+  my @stdout;
+  my @stderr;
 
-  #react {
+  my $fh;
 
-        #whenever $proc.stdout().lines { # split input on \r\n, \n, and \r 
+  if $make-report {
+    $fh = open $report-file, :w;
+  }
 
-         # my $line = chomp($_);
+  react {
 
-          #push @stdout, $_;
-          #say @stdout[*-1];
+        whenever $proc.stdout().lines { # split input on \r\n, \n, and \r 
 
-        #}
+          my $line = chomp($_);
+          push @stdout, $line;
+          say @stdout[*-1];
+          $fh.say($line) if $make-report;
+        }
 
-        #whenever $proc.stderr.lines { # split input on \r\n, \n, and \r
+        whenever $proc.stderr.lines { # split input on \r\n, \n, and \r
 
 
-          #push @stderr, $_;
-          #say @stderr[*-1];
-
-        #}
+          my $line = chomp($_);
+          push @stderr, $line;
+          say @stderr[*-1];
+          $fh.say("[stderr] ",$line) if $make-report;
+        }
 
         #whenever $proc.ready {
             #say ‘PID: ’, $_ # Only in Rakudo 2018.04 and newer, otherwise Nil 
         #}
 
-        #whenever $proc.start {
+        whenever $proc.start {
 
-         #   $exit-code = .exitcode;
+            $exit-code = .exitcode;
 
-            #done # gracefully jump from the react block
+            done # gracefully jump from the react block
 
-        #}
-    #}
+        }
+    }
 
    if $make-report {
-    say "save result to report: $report-file";
-    my $out = $proc.out.slurp;
-    my $err = $proc.err.slurp;
-    $out = $out ~ "stderr\n"  ~ $err if $err;
-    $report-file.IO.spurt($out ~ "---");
-
+    say "closing report file $report-file ...";
+    $fh.say("---");
+    $fh.close;
    }
 
 
