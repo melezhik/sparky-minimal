@@ -354,7 +354,7 @@ sub MAIN (
 
   update-sys-report($report-file-sys,"sparrowdo command:\n$sparrowdo-run-sanitized");
 
-  say "GGG GO GO GO, dir: $run-dir";
+  say "GO GO GO 123, dir: $run-dir";
 
   chdir($run-dir);
 
@@ -371,10 +371,8 @@ sub MAIN (
   my $fh;
 
   if $make-report {
-    $fh = open $report-file, :w, :!out-buffer;
+    $fh = open $report-file, :w;
   }
-
-  ($*OUT,$*ERR).map: {.out-buffer = 0};
 
   react {
 
@@ -384,7 +382,6 @@ sub MAIN (
           push @stdout, $line;
           say @stdout[*-1];
           $fh.say($line) if $make-report;
-          
         }
 
         whenever $proc.stderr.lines { # split input on \r\n, \n, and \r
