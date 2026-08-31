@@ -372,6 +372,7 @@ sub MAIN (
 
   if $make-report {
     $fh = open $report-file, :w;
+    $fh.out-buffer;
   }
 
   react {
@@ -382,6 +383,7 @@ sub MAIN (
           push @stdout, $line;
           say @stdout[*-1];
           $fh.say($line) if $make-report;
+          $fh.flush if $make-report;
         }
 
         whenever $proc.stderr.lines { # split input on \r\n, \n, and \r
