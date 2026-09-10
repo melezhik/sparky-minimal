@@ -68,7 +68,7 @@ sub MAIN (
 
     $dbh = get-dbh( $dir );
     
-    LEAVE { .close with $dbh };
+    #LEAVE { .close with $dbh };
 
     my $description = %trigger<description>;
 
