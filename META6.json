@@ -6,14 +6,11 @@
   "build-depends" : [ ],
   "depends" : [
     "JSON::Fast",
-    "Sparrowdo",
     "YAMLish",
-    "DBIish",
-    "DBIish::Pool",
     "Time::Crontab",
     "File::Directory::Tree",
-    "Sparrow6:ver<0.0.90+>",
-    "Sparrowdo:ver<0.1.54+>",
+    "Sparrow6:ver<0.0.94+>",
+    "Sparrowdo:ver<0.1.57+>",
     "Sparky-Job-Api:ver<0.0.12+>",
     "Data::Dump:ver<0.0.12+>"
   ],
