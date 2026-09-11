@@ -1,0 +1,40 @@
+use Sparky::Minimal::Sqlite;
+
+sub MAIN (
+  Str  :$root = %*ENV<HOME> ~ '/.dsci/.sparky/projects',
+)
+
+{
+
+mkdir $root;
+
+my $db-name = "$root/db.sqlite3";
+
+if $db-name.IO ~~ :f {
+  say "$db-name exists, consider delete it and run sparkyd-init again.\n(warning!!! you'll lose all the data)";
+  return;
+}
+
+my $dbh  = DB.open($db-name,False,True);
+
+#LEAVE { .close with $dbh };
+
+$dbh.execute(q:to/STATEMENT/);
+  DROP TABLE IF EXISTS builds
+STATEMENT
+
+$dbh.execute(q:to/STATEMENT/);
+  CREATE TABLE builds (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    project     varchar(255),
+    job_id      varchar(255),
+    description TEXT,
+    state       int,
+    dt datetime default current_timestamp
+  )
+STATEMENT
+
+say "$db-name created OK";
+
+
+}
