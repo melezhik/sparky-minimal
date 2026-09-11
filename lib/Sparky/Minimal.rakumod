@@ -1,6 +1,6 @@
 use v6;
 
-unit module Sparky::Minimal:ver<0.0.1>;
+unit module Sparky::Minimal:ver<0.0.2>;
 use YAMLish;
 use Time::Crontab;
 use JSON::Fast;
